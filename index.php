@@ -1,4 +1,7 @@
 <?php
+$lifetime = 60 * 60 * 24 *24; //2 weeks in seconds
+session_set_cookie_params($lifetime,'/');
+session_start();
     require("./model/database.php");
     require("./model/vehicle_db.php");
     require("./model/type_db.php");
@@ -41,11 +44,23 @@
         }
     }
 
+    $firstname  = filter_input(INPUT_GET,'firstname');
+
     $makes = get_makesAll();
     $types = get_typesAll();
     $classes = get_classesAll();
 
+if ($firstname) {
+    $_SESSION["userid"] = $firstname;
+}
+
 switch($action) {
+    case "register":
+        include("view/register.php");
+        break;
+    case "logout":
+        include("view/logout.php");
+        break;
     default:
         include("vehicles_list.php");
         break;

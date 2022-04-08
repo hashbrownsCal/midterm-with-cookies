@@ -9,7 +9,14 @@
 </head>
 
 <body class="container-sm">
-    <header>
+
+<?php if ($action != "register" && !isset($_SESSION['userid'])) { ?>
+    <p><a href="?action=register">Register</a></p>
+<?php } else if ($action != "register" && $action != "logout" && isset($_SESSION['userid'])) {?>
+    <p>Welcome <?php echo $_SESSION['userid'] ?>! (<a href="?action=logout">Sign Out</a>)</p>
+<?php } else if ($action == "register" || $action == "logout") {} ?>
+
+<header>
         <h1>Zippy Used Autos</h1>
     </header>
 
